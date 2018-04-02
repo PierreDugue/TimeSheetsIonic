@@ -1,0 +1,28 @@
+<form class="blockValue" (ngSubmit)="onSubmit()" [formGroup]="datasForm">
+  <div class="form-group">
+    <div>Parent name : </div>
+    <input class="formInput" class="form-control" formControlName="parentName" required/>
+    <ul>
+        <li class="errorValidation" *ngIf="datasForm.get('parentName').hasError('required')">Parent name is required</li>
+    </ul>
+  </div>
+  <div class="form-group">
+    <mat-form-field class="full-width">
+    <input matInput class="formInput" placeholder="Parent surname" class="form-control" formControlName="parentSurname" required/>
+    </mat-form-field>
+    <ul>
+        <li class="errorValidation" *ngIf="datasForm.get('parentSurname').hasError('required')">Parent surname is required</li>
+    </ul>
+  </div>
+  <div class="form-group">
+    <div>Children surname : </div>
+    <input class="formInput" class="form-control" formControlName="childrenSurname" required/>
+    <ul>
+        <li class="errorValidation" *ngIf="datasForm.get('childrenSurname').hasError('required')">Children surname is required</li>
+    </ul>
+  </div>
+  <div class="form-group">
+    <mat-checkbox >Include superannuation</mat-checkbox>
+  </div>
+  <button mat-button type="submit" [disabled]="!datasForm.valid">Save</button>
+</form>
