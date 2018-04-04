@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, ValidatorFn, FormControl, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidatorFn, FormControl } from '@angular/forms';
 import { parentsDatas } from '../../app/models/parentsDatas-model';
+import { ToastController } from 'ionic-angular';
 
 import { DataManagerProvider } from "../../providers/data-manager/data-manager"
 
@@ -14,10 +15,13 @@ export class ListPage {
   public datasForm: FormGroup;
   public parentsDatas: parentsDatas;
   public parentsDatasCtrl;
+  public response;
+  public parentList;
 
   constructor(public navCtrl: NavController,
     private formBuilder: FormBuilder,
-    public dataManagerProvider: DataManagerProvider) {
+    public dataManagerProvider: DataManagerProvider,
+    private toastCtrl: ToastController) {
 
     this.parentsDatasCtrl = {} as FormControl;
 
@@ -34,11 +38,37 @@ export class ListPage {
 
   ionViewDidLoad() {
     this.parentsDatas = new parentsDatas();
-    // this.dataManagerProvider.getData();
   }
 
-  ionViewWillEnter() {
-    // this.dataManagerProvider.getData();
+  ionViewDidEnter() {
+    this.dataManagerProvider.createPouchDB();
+
+    this.dataManagerProvider.getAll()
+      .then(res => {
+        this.parentList = res;
+      })
+      .catch((err) => { });
+
+  }
+  onSubmit() {
+    this.dataManagerProvider.create(this.datasForm.value).then(
+      res => {
+        this.response = res;
+        console.log(res);
+        if(this.response.ok){
+          this.presentToast();
+        }
+      }).catch(() => { });
+
   }
 
+  presentToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Parent was added successfully',
+      duration: 3000,
+      position: 'top'
+    });
+
+    toast.present();
+  }
 }
