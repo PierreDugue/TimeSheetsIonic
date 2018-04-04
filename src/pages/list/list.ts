@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, ValidatorFn, FormControl } from '@angular/forms';
+import { Component } from '@angular/core';
+import { NavController, ModalController } from 'ionic-angular';
 import { parentsDatas } from '../../app/models/parentsDatas-model';
 import { ToastController } from 'ionic-angular';
+import { ModalList } from './modal-list'
+import { AlertController } from 'ionic-angular';
 
 import { DataManagerProvider } from "../../providers/data-manager/data-manager"
 
@@ -12,28 +13,15 @@ import { DataManagerProvider } from "../../providers/data-manager/data-manager"
 })
 export class ListPage {
 
-  public datasForm: FormGroup;
   public parentsDatas: parentsDatas;
-  public parentsDatasCtrl;
   public response;
   public parentList;
 
   constructor(public navCtrl: NavController,
-    private formBuilder: FormBuilder,
     public dataManagerProvider: DataManagerProvider,
-    private toastCtrl: ToastController) {
-
-    this.parentsDatasCtrl = {} as FormControl;
-
-    this.parentsDatasCtrl.parentName = formBuilder.control('', Validators.required);
-    this.parentsDatasCtrl.parentSurname = formBuilder.control('', Validators.required);
-    this.parentsDatasCtrl.childrenSurname = formBuilder.control('', Validators.required);
-
-    this.datasForm = this.formBuilder.group({
-      parentName: this.parentsDatasCtrl.parentName,
-      parentSurname: this.parentsDatasCtrl.parentSurname,
-      childrenSurname: this.parentsDatasCtrl.childrenSurname,
-    });
+    private toastCtrl: ToastController,
+    public modalCtrl: ModalController,
+    public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -50,16 +38,18 @@ export class ListPage {
       .catch((err) => { });
 
   }
-  onSubmit() {
-    this.dataManagerProvider.create(this.datasForm.value).then(
-      res => {
-        this.response = res;
-        console.log(res);
-        if(this.response.ok){
-          this.presentToast();
-        }
-      }).catch(() => { });
 
+  deleteUser(parent) {
+    this.dataManagerProvider.delete(parent).then(res => {
+      console.log(res);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
+  presentProfileModal(id) {
+    let profileModal = this.modalCtrl.create(ModalList, { userId: id });
+    profileModal.present();
   }
 
   presentToast() {
@@ -70,5 +60,29 @@ export class ListPage {
     });
 
     toast.present();
+  }
+
+  presentConfirm(parent) {
+    let alert = this.alertCtrl.create({
+      title: 'Confirm suppression',
+      message: 'Do you want to delete this parent?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Delete',
+          handler: () => {
+            console.log('Buy clicked');
+            this.deleteUser(parent);
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }

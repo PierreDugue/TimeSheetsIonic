@@ -8,6 +8,8 @@ import { Toast } from '@ionic-native/toast';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { ModalList } from '../pages/list/modal-list'
+import { UserManagerPage } from '../pages/users-manager/users-manager';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -19,7 +21,9 @@ import { HttpModule } from '@angular/http';
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    UserManagerPage, 
+    ModalList
   ],
   imports: [
     BrowserModule,
@@ -30,7 +34,9 @@ import { HttpModule } from '@angular/http';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    UserManagerPage,
+    ModalList
   ],
   providers: [
     StatusBar,

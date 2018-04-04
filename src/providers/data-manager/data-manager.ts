@@ -1,22 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { parentsDatas } from '../../app/models/parentsDatas-model';
 import PouchDB from 'pouchdb';
 import 'rxjs/add/operator/map';
 import cordovaSqlitePlugin from 'pouchdb-adapter-cordova-sqlite';
 import { Http } from '@angular/http';
 
-/*
-  Generated class for the DataManagerProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class DataManagerProvider {
   public parentsDatas;
   public pdb;
 
-  constructor(public http: Http
+
+  constructor(public http: Http,
+    public zone: NgZone
   ) { }
 
   createPouchDB() {
@@ -35,29 +31,12 @@ export class DataManagerProvider {
   }
 
   delete(parent) {
-    return this.pdb.delete(parent);
+    return this.pdb.remove(parent);
   }
 
-  // read() {
-  //   function allDocs(): any {
-  //     this.pdb.allDocs({ include_docs: true })
-  //       .then(docs => {
-  //         this.parentsDatas = docs.rows.map(row => {
-  //           row.doc.Date = new Date(row.doc.Date);
-  //           return row.doc;
-  //         });
-  //         return this.parentsDatas;
-  //       });
-  //   }
-
-  //   this.pdb.changes({ live: true, since: 'now', include_docs: true })
-  //     .on('change', () => {
-  //       allDocs().then((emps) => {
-  //         this.parentsDatas = emps;
-  //       });
-  //     });
-  //   return allDocs();
-  // }
+  getWithId(id) {
+    return this.pdb.get(id);
+  }
 
   getAll() {
 
@@ -96,21 +75,23 @@ export class DataManagerProvider {
       }
     });
 
-    //A document was deleted
-    if (change.deleted) {
-      this.parentsDatas.splice(changedIndex, 1);
-    }
-    else {
-
-      //A document was updated
-      if (changedDoc) {
-        this.parentsDatas[changedIndex] = change.doc;
+    this.zone.run(() => {
+      //A document was deleted
+      if (change.deleted) {
+        this.parentsDatas.splice(changedIndex, 1);
       }
-
-      //A document was added
       else {
-        this.parentsDatas.push(change.doc);
+
+        //A document was updated
+        if (changedDoc) {
+          this.parentsDatas[changedIndex] = change.doc;
+        }
+
+        //A document was added
+        else {
+          this.parentsDatas.push(change.doc);
+        }
       }
-    }
+    });
   }
 }
