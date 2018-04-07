@@ -7,24 +7,3 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <form class="blockValue" (ngSubmit)="onSubmit()" [formGroup]="datasForm">
-    <ion-list>
-      <ion-item class="form-group">
-        <ion-label floating>Parent name</ion-label>
-        <ion-input type="text" class="formInput" class="form-control" formControlName="parentName" required></ion-input>
-      </ion-item>
-      <div class="errorValidation" *ngIf="datasForm.get('parentName').hasError('required')">Parent name is required</div>
-      <ion-item class="form-group">
-        <ion-label floating>Parent surname</ion-label>
-        <ion-input matInput class="formInput" class="form-control" formControlName="parentSurname" required></ion-input>
-      </ion-item>
-      <div class="errorValidation" *ngIf="datasForm.get('parentSurname').hasError('required')">Parent surname is required</div>
-      <ion-item class="form-group">
-        <ion-label floating>Children surname</ion-label>
-        <ion-input class="formInput" class="form-control" formControlName="childrenSurname" required></ion-input>
-      </ion-item>
-      <div class="errorValidation" *ngIf="datasForm.get('childrenSurname').hasError('required')">Children surname is required</div>
-    </ion-list>
-
-    <button ion-button type="submit" [disabled]="!datasForm.valid">Save</button>
-  </form>

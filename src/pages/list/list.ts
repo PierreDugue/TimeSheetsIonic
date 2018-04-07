@@ -62,6 +62,11 @@ export class ListPage {
     toast.present();
   }
 
+  addUser() {
+    let profileModal = this.modalCtrl.create(ModalList);
+    profileModal.present();
+  }
+
   presentConfirm(parent) {
     let alert = this.alertCtrl.create({
       title: 'Confirm suppression',

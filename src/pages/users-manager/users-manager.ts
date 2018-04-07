@@ -42,33 +42,7 @@ export class UserManagerPage {
 
   ionViewDidEnter() {
     this.dataManagerProvider.createPouchDB();
-
-    this.dataManagerProvider.getAll()
-      .then(res => {
-        this.parentList = res;
-      })
-      .catch((err) => { });
-
-  }
-  onSubmit() {
-    this.dataManagerProvider.create(this.datasForm.value).then(
-      res => {
-        this.response = res;
-        console.log(res);
-        if(this.response.ok){
-          this.presentToast();
-        }
-      }).catch(() => { });
-
   }
 
-  presentToast() {
-    let toast = this.toastCtrl.create({
-      message: 'Parent was added successfully',
-      duration: 3000,
-      position: 'bottom'
-    });
 
-    toast.present();
-  }
 }
