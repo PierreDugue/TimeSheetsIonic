@@ -16,8 +16,7 @@ export class TsManagerProvider {
 
   createPouchDB() {
     PouchDB.plugin(cordovaSqlitePlugin);
-    this.pdb = new PouchDB('tsDatabase.db',
-      { adapter: 'cordova-sqlite' });
+    this.pdb = new PouchDB('tsDatabase.db');
     return true;
   }
 

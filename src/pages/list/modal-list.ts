@@ -20,6 +20,7 @@ export class ModalList {
     public parentsDatasCtrl;
     public response;
     public parentList;
+    public errorLog;
 
     constructor(public navCtrl: NavController,
         public dataManagerProvider: DataManagerProvider,
@@ -60,14 +61,14 @@ export class ModalList {
                     if (this.response.ok) {
                         this.presentToast();
                     }
-                }).catch(() => { });
+                }).catch((err) => { this.errorLog = err; });
         } else {
             this.parent.parentName = this.datasForm.value.parentName;
             this.parent.parentSurname = this.datasForm.value.parentSurname;
             this.parent.childrenSurname = this.datasForm.value.childrenSurname;
             this.presentConfirm(this.parent);
         }
-        this.closeModal();
+        // this.closeModal();
     }
 
 

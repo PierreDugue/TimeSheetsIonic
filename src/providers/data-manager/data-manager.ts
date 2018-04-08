@@ -17,8 +17,7 @@ export class DataManagerProvider {
 
   createPouchDB() {
     PouchDB.plugin(cordovaSqlitePlugin);
-    this.pdb = new PouchDB('parentsDatas.db',
-      { adapter: 'cordova-sqlite' });
+    this.pdb = new PouchDB('parentsDatas.db');
     return true;
   }
 

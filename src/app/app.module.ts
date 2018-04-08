@@ -17,6 +17,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { DataManagerProvider } from '../providers/data-manager/data-manager';
 import { HttpModule } from '@angular/http';
 import { TsManagerProvider } from '../providers/ts-manager/ts-manager';
+import { detailsModal } from '../pages/users-manager/modal-details';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { TsManagerProvider } from '../providers/ts-manager/ts-manager';
     HomePage,
     ListPage,
     UserManagerPage, 
-    ModalList
+    ModalList,
+    detailsModal
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,8 @@ import { TsManagerProvider } from '../providers/ts-manager/ts-manager';
     HomePage,
     ListPage,
     UserManagerPage,
-    ModalList
+    ModalList,
+    detailsModal
   ],
   providers: [
     StatusBar,

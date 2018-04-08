@@ -19,9 +19,10 @@ export class HomePage implements OnInit {
   public currentDate: Date = new Date();
   public timeSheet: ts = {
     parentName: '',
-    arrivingTime: this.currentDate,
-    departureTime: this.currentDate,
-    signature: ''
+    arrivingTime: null,
+    departureTime: null,
+    signature: '',
+    currentDay: this.currentDate
   };
   public tsCtrl;
 
@@ -70,6 +71,7 @@ export class HomePage implements OnInit {
   }
 
   onSubmit() {
+    this.timeSheet.currentDay = this.currentDate;
     this.timeSheet.signature = this.signaturePad.toDataURL();
     console.log(this.timeSheet);
     this.tsManagerProvider.create(this.timeSheet).then((res) => {
