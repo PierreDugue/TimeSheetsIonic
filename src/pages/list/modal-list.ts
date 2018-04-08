@@ -67,6 +67,7 @@ export class ModalList {
             this.parent.childrenSurname = this.datasForm.value.childrenSurname;
             this.presentConfirm(this.parent);
         }
+        this.closeModal();
     }
 
 
@@ -99,7 +100,6 @@ export class ModalList {
                     text: 'Update',
                     handler: () => {
                         this.update(parent);
-                        this.navCtrl.pop();
                     }
                 }
             ]

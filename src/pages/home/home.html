@@ -8,11 +8,31 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+  <div>Day : {{currentDate | date:'dd/MM/yyyy'}}</div>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+  <form class="blockValue" (ngSubmit)="onSubmit()" [formGroup]="datasForm">
+    <ion-list>
+      <ion-item class="form-group">
+        <ion-label floating>Arriving hour</ion-label>
+        <ion-datetime displayFormat="HH:mm" class="formInput" class="form-control" formControlName="arrivingTime" [(ngModel)]="timeSheet.arrivingTime"
+          required></ion-datetime>
+      </ion-item>
+      <div class="errorValidation" *ngIf="datasForm.get('arrivingTime').hasError('required')">Arriving time is required</div>
+      <ion-item class="form-group">
+        <ion-label floating>Departure hour</ion-label>
+        <ion-datetime displayFormat="HH:mm" class="formInput" class="form-control" formControlName="departureTime" [(ngModel)]="timeSheet.departureTime"
+          required></ion-datetime>
+      </ion-item>
+      <div class="errorValidation" *ngIf="datasForm.get('departureTime').hasError('required')">Departure time is required</div>
+      <ion-item>
+        <ion-label>Familly</ion-label>
+        <ion-select [(ngModel)]="timeSheet.parentName" class="formInput" formControlName="parentName">
+          <ion-option *ngFor="let parent of parentList" [value]="parent?.parentName">{{parent?.parentName}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <div class="errorValidation" *ngIf="datasForm.get('parentName').hasError('required')">Parent is required</div>
+    </ion-list>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+    <button ion-button type="submit" [disabled]="!datasForm.valid">Save</button>
+  </form>
 </ion-content>

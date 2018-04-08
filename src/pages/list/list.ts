@@ -29,8 +29,6 @@ export class ListPage {
   }
 
   ionViewDidEnter() {
-    this.dataManagerProvider.createPouchDB();
-
     this.dataManagerProvider.getAll()
       .then(res => {
         this.parentList = res;

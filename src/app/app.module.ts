@@ -15,6 +15,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { DataManagerProvider } from '../providers/data-manager/data-manager';
 import { HttpModule } from '@angular/http';
+import { TsManagerProvider } from '../providers/ts-manager/ts-manager';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { HttpModule } from '@angular/http';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SQLite,
     Toast,
-    DataManagerProvider
+    DataManagerProvider,
+    TsManagerProvider
   ]
 })
 export class AppModule {}
