@@ -10,6 +10,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { ModalList } from '../pages/list/modal-list'
 import { UserManagerPage } from '../pages/users-manager/users-manager';
+import { SignaturePadModule } from 'angular2-signaturepad';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -29,7 +30,8 @@ import { TsManagerProvider } from '../providers/ts-manager/ts-manager';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
+    HttpModule,
+    SignaturePadModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -31,6 +31,9 @@
         </ion-select>
       </ion-item>
       <div class="errorValidation" *ngIf="datasForm.get('parentName').hasError('required')">Parent is required</div>
+ 
+        <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
+        <button ion-button full color="danger" (click)="clearPad()">Clear</button>
     </ion-list>
 
     <button ion-button type="submit" [disabled]="!datasForm.valid">Save</button>

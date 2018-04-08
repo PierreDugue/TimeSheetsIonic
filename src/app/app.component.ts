@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { UserManagerPage } from '../pages/users-manager/users-manager';
 import { DataManagerProvider } from '../providers/data-manager/data-manager';
+import { TsManagerProvider } from '../providers/ts-manager/ts-manager';
 
 @Component({
   templateUrl: 'app.html'
@@ -19,7 +20,8 @@ export class MyApp {
   pages: Array<{ title: string, component: any }>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
-    public dataManagerProvider: DataManagerProvider) {
+    public dataManagerProvider: DataManagerProvider,
+    public tsManagerProvider: TsManagerProvider) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -37,6 +39,7 @@ export class MyApp {
       this.splashScreen.hide();
     });
     this.dataManagerProvider.createPouchDB();
+    this.tsManagerProvider.createPouchDB();
   }
 
   openPage(page) {

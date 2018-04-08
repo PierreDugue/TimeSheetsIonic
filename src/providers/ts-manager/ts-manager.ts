@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
 import { Http } from '@angular/http';
+import PouchDB from 'pouchdb';
+import 'rxjs/add/operator/map';
+
 import cordovaSqlitePlugin from 'pouchdb-adapter-cordova-sqlite';
 
 @Injectable()
@@ -18,8 +21,8 @@ export class TsManagerProvider {
     return true;
   }
 
-  create(parent) {
-    return this.pdb.post(parent);
+  create(timeSheetDatas) {
+    return this.pdb.post(timeSheetDatas);
   }
 
   update(parent) {
