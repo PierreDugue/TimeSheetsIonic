@@ -1,5 +1,8 @@
 <ion-content padding>
-    {{timeSheet?.parentName}}
-    <ion-img width="80" height="80" src="{{timeSheet?.signature}}"></ion-img>
+    <h1>{{timeSheet?.currentDay | date:'dd/MM/yyyy'}}</h1>
+    <h2>{{timeSheet?.parentName}}</h2>
+    <h3>Arriving time : {{timeSheet?.arrivingTime}}</h3>
+    <h3>Departure time : {{timeSheet?.departureTime}}</h3>
+    <ion-img class="signatureImg" src="{{timeSheet?.signature}}"></ion-img>
     <button ion-button (click)="closeModal()">Close</button>
 </ion-content>

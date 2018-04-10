@@ -68,7 +68,7 @@ export class ModalList {
             this.parent.childrenSurname = this.datasForm.value.childrenSurname;
             this.presentConfirm(this.parent);
         }
-        // this.closeModal();
+        this.closeModal();
     }
 
 
