@@ -6,7 +6,7 @@ import { ToastController } from 'ionic-angular';
 import { TsManagerProvider } from '../../providers/ts-manager/ts-manager';
 import { ts } from '../../app/models/ts-model';
 import { detailsModal } from './modal-details';
-
+import { GroupByPipe } from '../../pipes/group-by/group-by';
 
 
 @Component({
@@ -15,6 +15,7 @@ import { detailsModal } from './modal-details';
 })
 export class UserManagerPage {
   private timeSheetDatas: ts;
+  public drawer: boolean = false;
   
   constructor(public navCtrl: NavController,
     public tsManagerProvider: TsManagerProvider,
@@ -35,6 +36,8 @@ export class UserManagerPage {
       })
       .catch((err) => { });
   }
+
+
 
   details(id) {
     let profileModal = this.modalCtrl.create(detailsModal, { userId: id });

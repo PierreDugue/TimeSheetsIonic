@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { GroupByPipe } from '../pipes/group-by/group-by';
 
 import { SQLite } from '@ionic-native/sqlite';
 import { Toast } from '@ionic-native/toast';
@@ -27,7 +28,8 @@ import { detailsModal } from '../pages/users-manager/modal-details';
     ListPage,
     UserManagerPage, 
     ModalList,
-    detailsModal
+    detailsModal,
+    GroupByPipe
   ],
   imports: [
     BrowserModule,

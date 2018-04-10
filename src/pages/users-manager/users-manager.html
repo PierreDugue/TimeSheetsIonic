@@ -8,10 +8,15 @@
 </ion-header>
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let timeSheet of timeSheetDatas">
-      <div (click)="details(timeSheet._id)"> {{timeSheet?.parentName}} {{timeSheet?.currentDay | date:'dd/MM/yyyy'}}
-      </div>
-      <a (click)="deleteTs(timeSheet)">Delete</a>
+    <ion-item *ngFor="let familly of (timeSheetDatas | groupBy:'parentName')">
+      <h1 (click)="familly.drawer = !familly.drawer">{{familly?.key}}</h1>
+      <ng-container *ngIf="familly.drawer">
+        <ion-item *ngFor="let timesheet of familly.value">
+          <div (click)="details(timesheet._id)">
+            {{timesheet?.currentDay | date:'dd/MM/yyyy'}}
+          </div>
+        </ion-item>
+      </ng-container>
     </ion-item>
   </ion-list>
 </ion-content>
