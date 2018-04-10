@@ -37,6 +37,10 @@ export class ListPage {
 
   }
 
+  /**
+   * Delete parent
+   * @param parent the parent to delete
+   */
   deleteUser(parent) {
     this.dataManagerProvider.delete(parent).then(res => {
       console.log(res);
@@ -45,11 +49,24 @@ export class ListPage {
     });
   }
 
+  /**
+   * Function calling ModalList. Sending the id of user to update
+   * if already existing
+   * @param id 
+   */
   presentProfileModal(id) {
-    let profileModal = this.modalCtrl.create(ModalList, { userId: id });
+    let profileModal;
+    if (id) {
+      profileModal = this.modalCtrl.create(ModalList, { userId: id });
+    } else {
+      profileModal = this.modalCtrl.create(ModalList);
+    }
     profileModal.present();
   }
 
+  /**
+   * Function managing the toasts
+   */
   presentToast() {
     let toast = this.toastCtrl.create({
       message: 'Parent was added successfully',
@@ -60,11 +77,10 @@ export class ListPage {
     toast.present();
   }
 
-  addUser() {
-    let profileModal = this.modalCtrl.create(ModalList);
-    profileModal.present();
-  }
-
+  /**
+   * Confirm box calling Delete User
+   * @param parent : the parent to delete
+   */
   presentConfirm(parent) {
     let alert = this.alertCtrl.create({
       title: 'Confirm suppression',

@@ -7,7 +7,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <button ion-button (click)="addUser()">Add parent</button>
+  <button ion-button (click)="presentProfileModal()">Add parent</button>
   <ion-list>
     <ion-item *ngFor="let parent of parentList">
       <div (click)="presentProfileModal(parent._id)"> {{parent.parentName}} {{parent.parentSurname}}

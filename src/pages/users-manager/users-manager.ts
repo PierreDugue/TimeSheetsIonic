@@ -37,13 +37,19 @@ export class UserManagerPage {
       .catch((err) => { });
   }
 
-
-
+/**
+ * Calling the modal detailsModal.
+ * @param id 
+ */
   details(id) {
     let profileModal = this.modalCtrl.create(detailsModal, { userId: id });
     profileModal.present();
   }
 
+  /**
+   * Delete timesheet
+   * @param ts
+   */
   deleteTs(ts) {
     this.tsManagerProvider.delete(ts).then(res => {
       console.log(res);

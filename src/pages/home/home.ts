@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, ValidatorFn, FormControl, AbstractControl } from '@angular/forms';
-import { parentsDatas } from '../../app/models/parentsDatas-model';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { DataManagerProvider } from '../../providers/data-manager/data-manager';
 import { ts } from '../../app/models/ts-model';
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
@@ -11,7 +10,7 @@ import { TsManagerProvider } from '../../providers/ts-manager/ts-manager';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage implements OnInit {
+export class HomePage {
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
 
   public datasForm: FormGroup;
@@ -53,12 +52,8 @@ export class HomePage implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.signaturePad.set('minWidth', 5); // set szimek/signature_pad options at runtime
-    this.signaturePad.clear(); // invoke functions from szimek/signature_pad API
-  }
-
-  ngOnInit() {
-
+    this.signaturePad.set('minWidth', 5);
+    this.signaturePad.clear();
   }
 
   ionViewDidEnter() {
@@ -70,6 +65,9 @@ export class HomePage implements OnInit {
       .catch((err) => { });
   }
 
+  /**
+   * Save the timeSheet
+   */
   onSubmit() {
     this.timeSheet.currentDay = this.currentDate;
     this.timeSheet.signature = this.signaturePad.toDataURL();
