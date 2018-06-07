@@ -19,7 +19,9 @@ import { DataManagerProvider } from '../providers/data-manager/data-manager';
 import { HttpModule } from '@angular/http';
 import { TsManagerProvider } from '../providers/ts-manager/ts-manager';
 import { detailsModal } from '../pages/users-manager/modal-details';
+import { SharedServicesProvider } from '../providers/shared-services/shared-services';
 
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { detailsModal } from '../pages/users-manager/modal-details';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
+    HttpClientModule,
     SignaturePadModule
   ],
   bootstrap: [IonicApp],
@@ -53,7 +56,8 @@ import { detailsModal } from '../pages/users-manager/modal-details';
     SQLite,
     Toast,
     DataManagerProvider,
-    TsManagerProvider
+    TsManagerProvider,
+    SharedServicesProvider
   ]
 })
 export class AppModule {}

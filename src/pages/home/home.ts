@@ -5,6 +5,7 @@ import { DataManagerProvider } from '../../providers/data-manager/data-manager';
 import { ts } from '../../app/models/ts-model';
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 import { TsManagerProvider } from '../../providers/ts-manager/ts-manager';
+import { SharedServicesProvider } from '../../providers/shared-services/shared-services'
 
 @Component({
   selector: 'page-home',
@@ -36,6 +37,7 @@ export class HomePage {
   constructor(public navCtrl: NavController,
     private formBuilder: FormBuilder,
     public dataManagerProvider: DataManagerProvider,
+    public sharedService: SharedServicesProvider,
     public tsManagerProvider: TsManagerProvider) {
 
     this.tsCtrl = {} as FormControl;
@@ -74,6 +76,7 @@ export class HomePage {
     console.log(this.timeSheet);
     this.tsManagerProvider.create(this.timeSheet).then((res) => {
       console.log(res);
+      this.sharedService.presentToast("Timesheet submited!");
     }).catch((err) => {
       console.log(err);
     });
@@ -92,5 +95,6 @@ export class HomePage {
   clearPad() {
     this.signaturePad.clear();
   }
+
 
 }

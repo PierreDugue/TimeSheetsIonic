@@ -3,6 +3,7 @@ import { NavController, ModalController, NavParams, ToastController, AlertContro
 import { DataManagerProvider } from '../../providers/data-manager/data-manager';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { parentsDatas } from '../../app/models/parentsDatas-model';
+import { SharedServicesProvider } from '../../providers/shared-services/shared-services'
 
 @Component({
     selector: 'modal-list',
@@ -27,7 +28,8 @@ export class ModalList {
         params: NavParams,
         private formBuilder: FormBuilder,
         private toastCtrl: ToastController,
-        public alertCtrl: AlertController) {
+        public alertCtrl: AlertController,
+        public sharedService: SharedServicesProvider) {
         this.datas = params;
         console.log(this.datas);
         this.parentsDatasCtrl = {} as FormControl;
@@ -59,7 +61,7 @@ export class ModalList {
                     this.response = res;
                     console.log("CREATE", res);
                     if (this.response.ok) {
-                        this.presentToast();
+                        this.sharedService.presentToast('Parent was added successfully!');
                     }
                 }).catch((err) => { this.errorLog = err; });
         } else {
@@ -69,17 +71,6 @@ export class ModalList {
             this.presentConfirm(this.parent);
         }
         this.closeModal();
-    }
-
-
-    presentToast() {
-        let toast = this.toastCtrl.create({
-            message: 'Parent was added successfully',
-            duration: 3000,
-            position: 'bottom'
-        });
-
-        toast.present();
     }
 
     closeModal() {
@@ -114,7 +105,7 @@ export class ModalList {
                 this.response = res;
                 console.log("UPDATE", res);
                 if (this.response.ok) {
-                    this.presentToast();
+                    this.sharedService.presentToast("Parent update with succes!");
                 }
             }).catch((err) => {
                 console.log(err);

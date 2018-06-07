@@ -65,19 +65,6 @@ export class ListPage {
   }
 
   /**
-   * Function managing the toasts
-   */
-  presentToast() {
-    let toast = this.toastCtrl.create({
-      message: 'Parent was added successfully',
-      duration: 3000,
-      position: 'top'
-    });
-
-    toast.present();
-  }
-
-  /**
    * Confirm box calling Delete User
    * @param parent : the parent to delete
    */
